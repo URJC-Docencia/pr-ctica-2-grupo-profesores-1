@@ -17,7 +17,19 @@ public class HuffmanTree {
      * @param text 
      */
     public HuffmanTree(String text) {
-       throw new RuntimeException("Not implemented yet");
+        Map<Character, Integer> frec = new HashMap<>();
+
+        for (Character c : text.toCharArray()){
+            if (frec.containsKey(c)){
+                int n = frec.get(c);
+                frec.put(c, n + 1);
+            }else{
+                frec.put(c, 1);
+            }
+        }
+
+        PriorityQueue<LinkedBinaryTree<Nodo>> queue = new PriorityQueue<>();
+
     }
     
     /**
@@ -37,5 +49,27 @@ public class HuffmanTree {
     String decoding(byte [] code) {
         throw new RuntimeException("Not implemented yet");
     }
-    
+
+
+    private class Nodo implements Comparator<Nodo>{
+        private int f; // Frecuencia
+
+        public Nodo(int f){
+            this.f = f;
+        }
+
+        @Override
+        public int compare(Nodo o1, Nodo o2) {
+            return o1.f - o2.f;
+        }
+    }
+
+    private class Hoja extends Nodo{
+        private int c;  // caracter
+
+        public Hoja(int f, Character c){
+            super(f);
+            this.c = c;
+        }
+    }
 }
